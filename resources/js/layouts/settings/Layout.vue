@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { Monitor, Palette, Shield, User } from 'lucide-vue-next';
 import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import { toUrl } from '@/lib/utils';
@@ -14,14 +14,17 @@ const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
         href: editProfile(),
+        icon: User,
     },
     {
         title: 'Security',
         href: editSecurity(),
+        icon: Shield,
     },
     {
         title: 'Appearance',
         href: editAppearance(),
+        icon: Palette,
     },
 ];
 
@@ -29,40 +32,42 @@ const { isCurrentOrParentUrl } = useCurrentUrl();
 </script>
 
 <template>
-    <div class="px-4 py-6">
+    <div class="px-4 py-6 md:px-6">
         <Heading
             title="Settings"
             description="Manage your profile and account settings"
         />
 
-        <div class="flex flex-col lg:flex-row lg:space-x-12">
-            <aside class="w-full max-w-xl lg:w-48">
+        <div class="flex flex-col lg:flex-row lg:gap-12">
+            <aside class="w-full max-w-xl lg:w-52">
                 <nav
-                    class="flex flex-col space-y-1 space-x-0"
+                    class="flex flex-col gap-1"
                     aria-label="Settings"
                 >
-                    <Button
+                    <Link
                         v-for="item in sidebarNavItems"
                         :key="toUrl(item.href)"
-                        variant="ghost"
+                        :href="item.href"
                         :class="[
-                            'w-full justify-start',
-                            { 'bg-muted': isCurrentOrParentUrl(item.href) },
+                            'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                            isCurrentOrParentUrl(item.href)
+                                ? 'bg-accent text-foreground shadow-sm'
+                                : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground',
                         ]"
-                        as-child
                     >
-                        <Link :href="item.href">
-                            <component :is="item.icon" class="h-4 w-4" />
-                            {{ item.title }}
-                        </Link>
-                    </Button>
+                        <component
+                            :is="item.icon"
+                            class="h-4 w-4"
+                        />
+                        {{ item.title }}
+                    </Link>
                 </nav>
             </aside>
 
             <Separator class="my-6 lg:hidden" />
 
             <div class="flex-1 md:max-w-2xl">
-                <section class="max-w-xl space-y-12">
+                <section class="max-w-xl space-y-8">
                     <slot />
                 </section>
             </div>

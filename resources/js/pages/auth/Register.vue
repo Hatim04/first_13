@@ -13,7 +13,7 @@ import { store } from '@/routes/register';
 defineOptions({
     layout: {
         title: 'Create an account',
-        description: 'Enter your details below to create your account',
+        description: 'Get started with your free account today',
     },
 });
 </script>
@@ -25,11 +25,11 @@ defineOptions({
         v-bind="store.form()"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
+        class="flex flex-col gap-5"
     >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
-                <Label for="name">Name</Label>
+        <div class="grid gap-5">
+            <div class="grid gap-1.5">
+                <Label for="name">Full name</Label>
                 <Input
                     id="name"
                     type="text"
@@ -38,12 +38,12 @@ defineOptions({
                     :tabindex="1"
                     autocomplete="name"
                     name="name"
-                    placeholder="Full name"
+                    placeholder="John Doe"
                 />
                 <InputError :message="errors.name" />
             </div>
 
-            <div class="grid gap-2">
+            <div class="grid gap-1.5">
                 <Label for="email">Email address</Label>
                 <Input
                     id="email"
@@ -57,7 +57,7 @@ defineOptions({
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
+            <div class="grid gap-1.5">
                 <Label for="password">Password</Label>
                 <PasswordInput
                     id="password"
@@ -65,12 +65,12 @@ defineOptions({
                     :tabindex="3"
                     autocomplete="new-password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="Create a password"
                 />
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="grid gap-2">
+            <div class="grid gap-1.5">
                 <Label for="password_confirmation">Confirm password</Label>
                 <PasswordInput
                     id="password_confirmation"
@@ -78,14 +78,14 @@ defineOptions({
                     :tabindex="4"
                     autocomplete="new-password"
                     name="password_confirmation"
-                    placeholder="Confirm password"
+                    placeholder="Confirm your password"
                 />
                 <InputError :message="errors.password_confirmation" />
             </div>
 
             <Button
                 type="submit"
-                class="mt-2 w-full"
+                class="mt-1 w-full rounded-xl py-2.5"
                 tabindex="5"
                 :disabled="processing"
                 data-test="register-user-button"
@@ -101,7 +101,7 @@ defineOptions({
                 :href="login()"
                 class="underline underline-offset-4"
                 :tabindex="6"
-                >Log in</TextLink
+                >Sign in</TextLink
             >
         </div>
     </Form>

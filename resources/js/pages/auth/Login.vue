@@ -14,8 +14,8 @@ import { request } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
+        title: 'Welcome back',
+        description: 'Sign in to your account to continue',
     },
 });
 
@@ -31,7 +31,7 @@ defineProps<{
 
     <div
         v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
+        class="mb-4 rounded-lg bg-green-50 p-3 text-center text-sm font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400"
     >
         {{ status }}
     </div>
@@ -40,10 +40,10 @@ defineProps<{
         v-bind="store.form()"
         :reset-on-success="['password']"
         v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
+        class="flex flex-col gap-5"
     >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
+        <div class="grid gap-5">
+            <div class="grid gap-1.5">
                 <Label for="email">Email address</Label>
                 <Input
                     id="email"
@@ -58,13 +58,13 @@ defineProps<{
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
+            <div class="grid gap-1.5">
                 <div class="flex items-center justify-between">
                     <Label for="password">Password</Label>
                     <TextLink
                         v-if="canResetPassword"
                         :href="request()"
-                        class="text-sm"
+                        class="text-xs"
                         :tabindex="5"
                     >
                         Forgot password?
@@ -81,22 +81,22 @@ defineProps<{
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
                 <Label for="remember" class="flex items-center space-x-3">
                     <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
+                    <span class="text-sm">Remember me</span>
                 </Label>
             </div>
 
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-1 w-full rounded-xl py-2.5"
                 :tabindex="4"
                 :disabled="processing"
                 data-test="login-button"
             >
                 <Spinner v-if="processing" />
-                Log in
+                Sign in
             </Button>
         </div>
 

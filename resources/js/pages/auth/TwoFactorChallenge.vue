@@ -17,16 +17,16 @@ const authConfigContent = computed<TwoFactorConfigContent>(() => {
         return {
             title: 'Recovery code',
             description:
-                'Please confirm access to your account by entering one of your emergency recovery codes.',
-            buttonText: 'login using an authentication code',
+                'Enter one of your emergency recovery codes to regain access to your account.',
+            buttonText: 'use authentication code instead',
         };
     }
 
     return {
-        title: 'Authentication code',
+        title: 'Two-factor authentication',
         description:
-            'Enter the authentication code provided by your authenticator application.',
-        buttonText: 'login using a recovery code',
+            'Enter the 6-digit code from your authenticator app.',
+        buttonText: 'use a recovery code instead',
     };
 });
 
@@ -51,18 +51,18 @@ const code = ref<string>('');
 <template>
     <Head title="Two-factor authentication" />
 
-    <div class="space-y-6">
+    <div class="space-y-5">
         <template v-if="!showRecoveryInput">
             <Form
                 v-bind="store.form()"
-                class="space-y-4"
+                class="space-y-5"
                 reset-on-error
                 @error="code = ''"
                 #default="{ errors, processing, clearErrors }"
             >
                 <input type="hidden" name="code" :value="code" />
                 <div
-                    class="flex flex-col items-center justify-center space-y-3 text-center"
+                    class="flex flex-col items-center justify-center gap-3 text-center"
                 >
                     <div class="flex w-full items-center justify-center">
                         <InputOTP
@@ -83,15 +83,20 @@ const code = ref<string>('');
                     </div>
                     <InputError :message="errors.code" />
                 </div>
-                <Button type="submit" class="w-full" :disabled="processing"
-                    >Continue</Button
+                <Button
+                    type="submit"
+                    class="w-full rounded-xl"
+                    :disabled="processing"
+                    >Verify</Button
                 >
                 <div class="text-center text-sm text-muted-foreground">
-                    <span>or you can </span>
+                    <span>Or </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
-                        @click="() => toggleRecoveryMode(clearErrors)"
+                        @click="
+                            () => toggleRecoveryMode(clearErrors)
+                        "
                     >
                         {{ authConfigContent.buttonText }}
                     </button>
@@ -102,7 +107,7 @@ const code = ref<string>('');
         <template v-else>
             <Form
                 v-bind="store.form()"
-                class="space-y-4"
+                class="space-y-5"
                 reset-on-error
                 #default="{ errors, processing, clearErrors }"
             >
@@ -114,16 +119,21 @@ const code = ref<string>('');
                     required
                 />
                 <InputError :message="errors.recovery_code" />
-                <Button type="submit" class="w-full" :disabled="processing"
-                    >Continue</Button
+                <Button
+                    type="submit"
+                    class="w-full rounded-xl"
+                    :disabled="processing"
+                    >Verify</Button
                 >
 
                 <div class="text-center text-sm text-muted-foreground">
-                    <span>or you can </span>
+                    <span>Or </span>
                     <button
                         type="button"
                         class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
-                        @click="() => toggleRecoveryMode(clearErrors)"
+                        @click="
+                            () => toggleRecoveryMode(clearErrors)
+                        "
                     >
                         {{ authConfigContent.buttonText }}
                     </button>

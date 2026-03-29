@@ -9,9 +9,9 @@ import { store } from '@/routes/password/confirm';
 
 defineOptions({
     layout: {
-        title: 'Confirm your password',
+        title: 'Confirm your identity',
         description:
-            'This is a secure area of the application. Please confirm your password before continuing.',
+            'This is a secure area. Please enter your password to continue.',
     },
 });
 </script>
@@ -24,31 +24,29 @@ defineOptions({
         reset-on-success
         v-slot="{ errors, processing }"
     >
-        <div class="space-y-6">
-            <div class="grid gap-2">
+        <div class="space-y-5">
+            <div class="grid gap-1.5">
                 <Label htmlFor="password">Password</Label>
                 <PasswordInput
                     id="password"
                     name="password"
-                    class="mt-1 block w-full"
                     required
                     autocomplete="current-password"
                     autofocus
+                    placeholder="Enter your password"
                 />
 
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="flex items-center">
-                <Button
-                    class="w-full"
-                    :disabled="processing"
-                    data-test="confirm-password-button"
-                >
-                    <Spinner v-if="processing" />
-                    Confirm password
-                </Button>
-            </div>
+            <Button
+                class="w-full rounded-xl"
+                :disabled="processing"
+                data-test="confirm-password-button"
+            >
+                <Spinner v-if="processing" />
+                Continue
+            </Button>
         </div>
     </Form>
 </template>

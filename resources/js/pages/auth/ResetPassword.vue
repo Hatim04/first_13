@@ -11,8 +11,8 @@ import { update } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Reset password',
-        description: 'Please enter your new password below',
+        title: 'Set a new password',
+        description: 'Choose a strong password for your account',
     },
 });
 
@@ -32,9 +32,10 @@ const inputEmail = ref(props.email);
         :transform="(data) => ({ ...data, token, email })"
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
+        class="flex flex-col gap-5"
     >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
+        <div class="grid gap-5">
+            <div class="grid gap-1.5">
                 <Label for="email">Email</Label>
                 <Input
                     id="email"
@@ -42,40 +43,39 @@ const inputEmail = ref(props.email);
                     name="email"
                     autocomplete="email"
                     v-model="inputEmail"
-                    class="mt-1 block w-full"
                     readonly
                 />
-                <InputError :message="errors.email" class="mt-2" />
+                <InputError :message="errors.email" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password">Password</Label>
+            <div class="grid gap-1.5">
+                <Label for="password">New password</Label>
                 <PasswordInput
                     id="password"
                     name="password"
                     autocomplete="new-password"
-                    class="mt-1 block w-full"
                     autofocus
-                    placeholder="Password"
+                    placeholder="Create a new password"
                 />
                 <InputError :message="errors.password" />
             </div>
 
-            <div class="grid gap-2">
-                <Label for="password_confirmation"> Confirm password </Label>
+            <div class="grid gap-1.5">
+                <Label for="password_confirmation"
+                    >Confirm password</Label
+                >
                 <PasswordInput
                     id="password_confirmation"
                     name="password_confirmation"
                     autocomplete="new-password"
-                    class="mt-1 block w-full"
-                    placeholder="Confirm password"
+                    placeholder="Confirm your new password"
                 />
                 <InputError :message="errors.password_confirmation" />
             </div>
 
             <Button
                 type="submit"
-                class="mt-4 w-full"
+                class="mt-1 w-full rounded-xl"
                 :disabled="processing"
                 data-test="reset-password-button"
             >

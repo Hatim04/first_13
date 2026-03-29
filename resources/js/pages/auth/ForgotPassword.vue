@@ -11,8 +11,9 @@ import { email } from '@/routes/password';
 
 defineOptions({
     layout: {
-        title: 'Forgot password',
-        description: 'Enter your email to receive a password reset link',
+        title: 'Forgot your password?',
+        description:
+            "No worries — enter your email and we'll send you a reset link",
     },
 });
 
@@ -26,14 +27,14 @@ defineProps<{
 
     <div
         v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
+        class="mb-4 rounded-lg bg-green-50 p-3 text-center text-sm font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400"
     >
         {{ status }}
     </div>
 
-    <div class="space-y-6">
+    <div class="space-y-5">
         <Form v-bind="email.form()" v-slot="{ errors, processing }">
-            <div class="grid gap-2">
+            <div class="grid gap-1.5">
                 <Label for="email">Email address</Label>
                 <Input
                     id="email"
@@ -46,21 +47,21 @@ defineProps<{
                 <InputError :message="errors.email" />
             </div>
 
-            <div class="my-6 flex items-center justify-start">
+            <div class="mt-5">
                 <Button
-                    class="w-full"
+                    class="w-full rounded-xl"
                     :disabled="processing"
                     data-test="email-password-reset-link-button"
                 >
                     <Spinner v-if="processing" />
-                    Email password reset link
+                    Send reset link
                 </Button>
             </div>
         </Form>
 
-        <div class="space-x-1 text-center text-sm text-muted-foreground">
-            <span>Or, return to</span>
-            <TextLink :href="login()">log in</TextLink>
+        <div class="text-center text-sm text-muted-foreground">
+            <span>Remember your password? </span>
+            <TextLink :href="login()">Sign in</TextLink>
         </div>
     </div>
 </template>
